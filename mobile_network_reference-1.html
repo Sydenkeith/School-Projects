@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Network Architecture Reference</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .component {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 5px solid #2196F3;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .component:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .component-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        
+        .icon {
+            font-size: 40px;
+            margin-right: 15px;
+        }
+        
+        .component-title {
+            flex: 1;
+        }
+        
+        .component-title h2 {
+            font-size: 22px;
+            color: #1976D2;
+            margin-bottom: 5px;
+        }
+        
+        .component-title .subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .toggle {
+            font-size: 24px;
+            color: #2196F3;
+            transition: transform 0.3s;
+        }
+        
+        .component.active .toggle {
+            transform: rotate(180deg);
+        }
+        
+        .details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .component.active .details {
+            max-height: 1000px;
+        }
+        
+        .definition {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .definition strong {
+            color: #1976D2;
+        }
+        
+        .functions {
+            margin: 15px 0;
+        }
+        
+        .functions h4 {
+            color: #1976D2;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .functions ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .functions li {
+            padding: 8px 0 8px 25px;
+            position: relative;
+        }
+        
+        .functions li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .fun-fact {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 4px solid #FF9800;
+        }
+        
+        .fun-fact strong {
+            color: #F57C00;
+        }
+        
+        .journey-map {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .journey-map h3 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        
+        .arrow {
+            font-size: 20px;
+        }
+        
+        .summary {
+            background: #e8f5e9;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border-left: 5px solid #4CAF50;
+        }
+        
+        .summary h3 {
+            color: #2E7D32;
+            margin-bottom: 15px;
+        }
+        
+        .summary ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .summary li {
+            padding: 8px 0;
+            font-size: 15px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                border-radius: 0;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .component {
+                padding: 20px;
+            }
+            
+            .component-title h2 {
+                font-size: 20px;
+            }
+            
+            .icon {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📱 Mobile Network Architecture</h1>
+            <p>Complete Reference Guide</p>
+        </div>
+        
+        <div class="content">
+            <!-- Component 1: Mobile Station -->
+            <div class="component" onclick="toggleComponent(this)">
+                <div class="component-header">
+                    <div class="icon">📱</div>
+                    <div class="component-title">
+                        <h2>Mobile Station (MS)</h2>
+                        <div class="subtitle">Your Personal Gateway</div>
+                    </div>
+                    <div class="toggle">▼</div>
+                </div>
+                <div class="details">
+                    <div class="definition">
+                        <strong>Definition:</strong> The mobile device (smartphone, tablet, or any wireless device) that you use to send and receive information. It's your personal gateway to the mobile network.
+                    </div>
+                    <div class="functions">
+                        <h4>Key Functions:</h4>
+                        <ul>
+                            <li>Converts messages into radio signals</li>
+                            <li>Transmits data wirelessly</li>
+                            <li>Receives incoming signals</li>
+                            <li>Initiates and receives calls</li>
+                            <li>Connects to nearby cell towers</li>
+                        </ul>
+                    </div>
+                    <div class="fun-fact">
+                        <strong>Examples:</strong> Smartphones, tablets, mobile hotspots, smartwatches, IoT devices
+                    </div>
+                </div>
+            </div>
+
+            <!-- Component 2: Base Station -->
+            <div class="component" onclick="toggleComponent(this)">
+                <div class="component-header">
+                    <div class="icon">📡</div>
+                    <div class="component-title">
+                        <h2>Base Station (BS/BTS)</h2>
+                        <div class="subtitle">The Signal Catcher</div>
+                    </div>
+                    <div class="toggle">▼</div>
+                </div>
+                <div class="details">
+                    <div class="definition">
+                        <strong>Definition:</strong> A cell tower that wirelessly receives and transmits radio signals from mobile devices. It provides coverage to a specific geographic area called a "cell."
+                    </div>
+                    <div class="functions">
+                        <h4>Key Functions:</h4>
+                        <ul>
+                            <li>Receives radio signals from mobile devices</li>
+                            <li>Transmits signals back to phones</li>
+                            <li>Covers a specific area (cell)</li>
+                            <li>Connects to Base Station Controller</li>
+                            <li>Manages radio frequency allocation</li>
+                        </ul>
+                    </div>
+                    <div class="fun-fact">
+                        <strong>Did You Know?</strong> Your city might have hundreds of these towers! They're usually 50-200 feet tall and can serve thousands of users simultaneously. That's why we call them "cell" phones!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Component 3: BSC -->
+            <div class="component" onclick="toggleComponent(this)">
+                <div class="component-header">
+                    <div class="icon">🎛️</div>
+                    <div class="component-title">
+                        <h2>Base Station Controller (BSC)</h2>
+                        <div class="subtitle">The Traffic Manager</div>
+                    </div>
+                    <div class="toggle">▼</div>
+                </div>
+                <div class="details">
+                    <div class="definition">
+                        <strong>Definition:</strong> The intelligent system that manages and controls multiple Base Stations in a geographic area. Think of it as the traffic controller for mobile signals.
+                    </div>
+                    <div class="functions">
+                        <h4>Key Functions:</h4>
+                        <ul>
+                            <li>Manages radio resources for multiple towers</li>
+                            <li>Controls handovers between cells</li>
+                            <li>Routes calls and messages efficiently</li>
+                            <li>Monitors signal quality</li>
+                            <li>Optimizes network performance</li>
+                            <li>Manages frequency allocation</li>
+                        </ul>
+                    </div>
+                    <div class="fun-fact">
+                        <strong>Fun Fact:</strong> One BSC can control 50-100 Base Stations and handle thousands of simultaneous calls and messages! It keeps your call connected even when you're driving between cell towers.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Component 4: MSC -->
+            <div class="component" onclick="toggleComponent(this)">
+                <div class="component-header">
+                    <div class="icon">🧠</div>
+                    <div class="component-title">
+                        <h2>Mobile Switching Center (MSC)</h2>
+                        <div class="subtitle">The Network Brain</div>
+                    </div>
+                    <div class="toggle">▼</div>
+                </div>
+                <div class="details">
+                    <div class="definition">
+                        <strong>Definition:</strong> The central switching system that routes calls and messages to their destinations and manages network resources. It's the brain that knows where every phone is located.
+                    </div>
+                    <div class="functions">
+                        <h4>Key Functions:</h4>
+                        <ul>
+                            <li>Tracks location of all mobile devices</li>
+                            <li>Routes calls and messages to destinations</li>
+                            <li>Manages call setup and termination</li>
+                            <li>Handles billing and authentication</li>
+                            <li>Connects to other networks</li>
+                            <li>Stores subscriber information</li>
+                        </ul>
+                    </div>
+                    <div class="fun-fact">
+                        <strong>Amazing Fact:</strong> A single MSC can handle millions of subscribers and route hundreds of thousands of calls and messages simultaneously! It's like a super-smart post office combined with GPS.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Component 5: Core Network -->
+            <div class="component" onclick="toggleComponent(this)">
+                <div class="component-header">
+                    <div class="icon">🌐</div>
+                    <div class="component-title">
+                        <h2>Core Network</h2>
+                        <div class="subtitle">The Backbone Superhighway</div>
+                    </div>
+                    <div class="toggle">▼</div>
+                </div>
+                <div class="details">
+                    <div class="definition">
+                        <strong>Definition:</strong> The central backbone infrastructure that connects all network elements, provides services, and links to external networks like the internet.
+                    </div>
+                    <div class="functions">
+                        <h4>Key Functions:</h4>
+                        <ul>
+                            <li>Connects all MSCs and BSCs together</li>
+                            <li>Provides internet connectivity</li>
+                            <li>Links different mobile networks</li>
+                            <li>Manages data and voice services</li>
+                            <li>Ensures network security</li>
+                            <li>Routes traffic globally</li>
+                        </ul>
+                    </div>
+                    <div class="fun-fact">
+                        <strong>Technology:</strong> Uses fiber optic cables, high-speed routers, and data centers to move information at the speed of light! It's the superhighway that connects everything together.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journey Map -->
+            <div class="journey-map">
+                <h3>The Message Journey</h3>
+                <p>How a text message travels from sender to receiver:</p>
+                <div class="flow">
+                    <span>📱</span>
+                    <span class="arrow">→</span>
+                    <span>📡</span>
+                    <span class="arrow">→</span>
+                    <span>🎛️</span>
+                    <span class="arrow">→</span>
+                    <span>🧠</span>
+                    <span class="arrow">→</span>
+                    <span>🌐</span>
+                    <span class="arrow">→</span>
+                    <span>🧠</span>
+                    <span class="arrow">→</span>
+                    <span>🎛️</span>
+                    <span class="arrow">→</span>
+                    <span>📡</span>
+                    <span class="arrow">→</span>
+                    <span>📱</span>
+                </div>
+                <p style="margin-top: 20px; font-size: 14px;">All of this happens in less than one second!</p>
+            </div>
+
+            <!-- Summary -->
+            <div class="summary">
+                <h3>🎯 Key Takeaways</h3>
+                <ul>
+                    <li><strong>📱 Mobile Station:</strong> Your device that starts and receives the journey</li>
+                    <li><strong>📡 Base Station:</strong> Cell towers that catch and transmit your signals</li>
+                    <li><strong>🎛️ BSC:</strong> Traffic controller managing multiple towers</li>
+                    <li><strong>🧠 MSC:</strong> The brain that finds your message's destination</li>
+                    <li><strong>🌐 Core Network:</strong> The backbone connecting everything together</li>
+                </ul>
+                <p style="margin-top: 20px; font-style: italic;">
+                    All five components work together in perfect harmony billions of times every day to keep us connected!
+                </p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Mobile Network Architecture Reference Guide</p>
+            <p>Tap any component to learn more!</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleComponent(element) {
+            element.classList.toggle('active');
+        }
+
+        // Auto-expand first component on load
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.component').classList.add('active');
+        });
+    </script>
+</body>
+</html>
