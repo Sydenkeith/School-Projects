@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireless Networks and Their Types</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.7;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: #ff6b35;
+            color: white;
+            padding: 35px 25px;
+            text-align: center;
+            border-bottom: 4px solid #e85d2a;
+        }
+        
+        .header h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+        
+        .intro {
+            padding: 30px 25px;
+            background: #fff9f5;
+            border-left: 4px solid #ff6b35;
+        }
+        
+        .intro h2 {
+            color: #ff6b35;
+            margin-bottom: 15px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+        
+        .intro p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+        
+        .content {
+            padding: 25px;
+        }
+        
+        .network-type {
+            background: #fafafa;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        
+        .network-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #ff6b35;
+        }
+        
+        .icon {
+            font-size: 45px;
+            margin-right: 15px;
+        }
+        
+        .network-title h3 {
+            font-size: 24px;
+            color: #ff6b35;
+            margin-bottom: 3px;
+            font-weight: 600;
+        }
+        
+        .network-title .full-name {
+            font-size: 13px;
+            color: #777;
+        }
+        
+        .definition {
+            background: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 3px solid #ff6b35;
+            border-radius: 4px;
+        }
+        
+        .definition strong {
+            color: #e85d2a;
+        }
+        
+        .characteristics {
+            margin: 15px 0;
+        }
+        
+        .characteristics h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .characteristics ul {
+            padding-left: 20px;
+        }
+        
+        .characteristics li {
+            padding: 5px 0;
+            font-size: 14px;
+            list-style: disc;
+            color: #555;
+        }
+        
+        .examples {
+            background: #fff3e0;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 4px;
+            border-left: 3px solid #ffa726;
+        }
+        
+        .examples strong {
+            color: #f57c00;
+        }
+        
+        .comparison-table {
+            background: white;
+            padding: 25px;
+            margin: 25px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        
+        .comparison-table h3 {
+            color: #ff6b35;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        th {
+            background: #ff6b35;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+        
+        tr:nth-child(even) {
+            background: #fafafa;
+        }
+        
+        .advantages {
+            background: #e8f5e9;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+            border-left: 4px solid #66bb6a;
+        }
+        
+        .advantages h3 {
+            color: #388e3c;
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .advantages ul {
+            padding-left: 20px;
+        }
+        
+        .advantages li {
+            padding: 6px 0;
+            font-size: 14px;
+            list-style: none;
+            color: #555;
+        }
+        
+        .advantages li:before {
+            content: "✓ ";
+            color: #66bb6a;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .challenges {
+            background: #ffebee;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+            border-left: 4px solid #ef5350;
+        }
+        
+        .challenges h3 {
+            color: #d32f2f;
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .challenges ul {
+            padding-left: 20px;
+        }
+        
+        .challenges li {
+            padding: 6px 0;
+            font-size: 14px;
+            list-style: none;
+            color: #555;
+        }
+        
+        .challenges li:before {
+            content: "⚠ ";
+            color: #ef5350;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #fafafa;
+            color: #777;
+            font-size: 13px;
+            border-top: 2px solid #e0e0e0;
+        }
+        
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .network-type {
+                padding: 18px;
+            }
+            
+            .icon {
+                font-size: 38px;
+            }
+            
+            .network-title h3 {
+                font-size: 20px;
+            }
+            
+            table {
+                font-size: 12px;
+            }
+            
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📶 Wireless Networks</h1>
+            <p>Understanding Different Types of Wireless Communication</p>
+        </div>
+        
+        <div class="intro">
+            <h2>What is a Wireless Network?</h2>
+            <p>
+                A wireless network is a computer network that uses wireless data connections between network nodes. 
+                Wireless networking allows devices to stay connected to the network without being tethered by cables, 
+                providing flexibility and mobility. These networks use radio waves, infrared signals, or microwaves to 
+                transmit data between devices.
+            </p>
+            <p>
+                Wireless networks have revolutionized how we connect and communicate, enabling everything from 
+                smartphones and laptops to smart home devices and industrial sensors to exchange data without 
+                physical connections.
+            </p>
+        </div>
+        
+        <div class="content">
+            <h2 style="color: #667eea; margin-bottom: 20px; font-size: 28px; text-align: center;">
+                Types of Wireless Networks
+            </h2>
+            
+            <!-- WPAN -->
+            <div class="network-type">
+                <div class="network-header">
+                    <div class="icon">🔵</div>
+                    <div class="network-title">
+                        <h3>WPAN</h3>
+                        <div class="full-name">Wireless Personal Area Network</div>
+                    </div>
+                </div>
+                <div class="definition">
+                    <strong>Definition:</strong> A WPAN is a network for interconnecting devices centered around an individual person's workspace, typically within a range of 10 meters (33 feet).
+                </div>
+                <div class="characteristics">
+                    <h4>Key Characteristics:</h4>
+                    <ul>
+                        <li>Very short range (typically 1-10 meters)</li>
+                        <li>Low power consumption</li>
+                        <li>Used for personal devices</li>
+                        <li>Technologies: Bluetooth, Zigbee, NFC</li>
+                        <li>Data rates: 1 Mbps to 24 Mbps</li>
+                    </ul>
+                </div>
+                <div class="examples">
+                    <strong>Common Examples:</strong> Connecting wireless headphones to phone, smartwatch to smartphone, wireless keyboard to computer, fitness trackers, wireless mouse, home automation devices
+                </div>
+            </div>
+            
+            <!-- WLAN -->
+            <div class="network-type">
+                <div class="network-header">
+                    <div class="icon">📱</div>
+                    <div class="network-title">
+                        <h3>WLAN</h3>
+                        <div class="full-name">Wireless Local Area Network</div>
+                    </div>
+                </div>
+                <div class="definition">
+                    <strong>Definition:</strong> A WLAN links devices over a relatively short distance, typically within a building or campus. It's what most people know as "Wi-Fi."
+                </div>
+                <div class="characteristics">
+                    <h4>Key Characteristics:</h4>
+                    <ul>
+                        <li>Range: 30-100 meters indoors, up to 300 meters outdoors</li>
+                        <li>High data transfer rates (up to several Gbps)</li>
+                        <li>Uses IEEE 802.11 standards (Wi-Fi)</li>
+                        <li>Connects multiple devices simultaneously</li>
+                        <li>Requires access point or router</li>
+                    </ul>
+                </div>
+                <div class="examples">
+                    <strong>Common Examples:</strong> Home Wi-Fi networks, office wireless networks, coffee shop hotspots, school campus networks, airport Wi-Fi, library networks
+                </div>
+            </div>
+            
+            <!-- WMAN -->
+            <div class="network-type">
+                <div class="network-header">
+                    <div class="icon">🏙️</div>
+                    <div class="network-title">
+                        <h3>WMAN</h3>
+                        <div class="full-name">Wireless Metropolitan Area Network</div>
+                    </div>
+                </div>
+                <div class="definition">
+                    <strong>Definition:</strong> A WMAN connects several WLANs together, covering a larger geographic area such as a city or metropolitan area.
+                </div>
+                <div class="characteristics">
+                    <h4>Key Characteristics:</h4>
+                    <ul>
+                        <li>Range: Several kilometers to entire city</li>
+                        <li>Connects multiple buildings or locations</li>
+                        <li>Uses WiMAX (IEEE 802.16) technology</li>
+                        <li>Provides broadband wireless access</li>
+                        <li>Can serve as alternative to cable/DSL</li>
+                    </ul>
+                </div>
+                <div class="examples">
+                    <strong>Common Examples:</strong> City-wide Wi-Fi networks, WiMAX internet service providers, connecting multiple university campuses, municipal wireless networks, connecting corporate branches within a city
+                </div>
+            </div>
+            
+            <!-- WWAN -->
+            <div class="network-type">
+                <div class="network-header">
+                    <div class="icon">🌍</div>
+                    <div class="network-title">
+                        <h3>WWAN</h3>
+                        <div class="full-name">Wireless Wide Area Network</div>
+                    </div>
+                </div>
+                <div class="definition">
+                    <strong>Definition:</strong> A WWAN covers a large geographic area, often a country or continent. It's what enables cellular communication and mobile internet.
+                </div>
+                <div class="characteristics">
+                    <h4>Key Characteristics:</h4>
+                    <ul>
+                        <li>Largest coverage area (regional to global)</li>
+                        <li>Uses cellular technology (3G, 4G, 5G)</li>
+                        <li>Enables mobile communications</li>
+                        <li>Requires cell towers and base stations</li>
+                        <li>Managed by telecommunications companies</li>
+                    </ul>
+                </div>
+                <div class="examples">
+                    <strong>Common Examples:</strong> Mobile phone networks (3G/4G/5G), cellular data services, mobile hotspots, satellite internet, IoT device connectivity, global GPS systems
+                </div>
+            </div>
+            
+            <!-- Comparison Table -->
+            <div class="comparison-table">
+                <h3>📊 Quick Comparison</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Range</th>
+                            <th>Speed</th>
+                            <th>Technology</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>WPAN</strong></td>
+                            <td>1-10 meters</td>
+                            <td>1-24 Mbps</td>
+                            <td>Bluetooth, Zigbee</td>
+                            <td>Personal devices</td>
+                        </tr>
+                        <tr>
+                            <td><strong>WLAN</strong></td>
+                            <td>30-300 meters</td>
+                            <td>Up to 10 Gbps</td>
+                            <td>Wi-Fi (802.11)</td>
+                            <td>Home, office networks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>WMAN</strong></td>
+                            <td>Up to 50 km</td>
+                            <td>Up to 1 Gbps</td>
+                            <td>WiMAX (802.16)</td>
+                            <td>City-wide coverage</td>
+                        </tr>
+                        <tr>
+                            <td><strong>WWAN</strong></td>
+                            <td>Regional/Global</td>
+                            <td>Up to 10 Gbps (5G)</td>
+                            <td>3G/4G/5G Cellular</td>
+                            <td>Mobile communications</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Advantages -->
+            <div class="advantages">
+                <h3>✅ Advantages of Wireless Networks</h3>
+                <ul>
+                    <li><strong>Mobility:</strong> Users can move freely while staying connected</li>
+                    <li><strong>Easy Installation:</strong> No need for extensive cabling infrastructure</li>
+                    <li><strong>Flexibility:</strong> Easy to add new devices to the network</li>
+                    <li><strong>Cost-Effective:</strong> Lower installation and maintenance costs</li>
+                    <li><strong>Scalability:</strong> Easy to expand network coverage</li>
+                    <li><strong>Access in Remote Areas:</strong> Can reach places where cables can't</li>
+                    <li><strong>Productivity:</strong> Enables work from anywhere within range</li>
+                    <li><strong>Guest Access:</strong> Easy to provide temporary network access</li>
+                </ul>
+            </div>
+            
+            <!-- Challenges -->
+            <div class="challenges">
+                <h3>⚠️ Challenges and Limitations</h3>
+                <ul>
+                    <li><strong>Security Concerns:</strong> More vulnerable to unauthorized access</li>
+                    <li><strong>Interference:</strong> Can be affected by other wireless devices</li>
+                    <li><strong>Limited Range:</strong> Signal strength decreases with distance</li>
+                    <li><strong>Bandwidth Limitations:</strong> Shared bandwidth among users</li>
+                    <li><strong>Speed Variations:</strong> Performance depends on distance and obstacles</li>
+                    <li><strong>Power Consumption:</strong> Wireless devices require regular charging</li>
+                    <li><strong>Reliability:</strong> Generally less reliable than wired connections</li>
+                    <li><strong>Health Concerns:</strong> Ongoing research on RF exposure effects</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Wireless Networks Reference Guide</strong></p>
+            <p>Understanding the different types of wireless communication technologies</p>
+            <p style="margin-top: 10px; font-size: 12px;">© 2026 - Educational Resource</p>
+        </div>
+    </div>
+</body>
+</html>
