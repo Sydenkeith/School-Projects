@@ -1,0 +1,42 @@
+[
+  {
+    "question": "What does BTS stand for?",
+    "optionA": "Base Transmission System",
+    "optionB": "Base Transceiver Station",
+    "optionC": "Basic Tower System",
+    "optionD": "Big Tower Station",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "What is the brain of the mobile network?",
+    "optionA": "BSC",
+    "optionB": "MSC",
+    "optionC": "BTS",
+    "optionD": "Core Network",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Which component catches radio signals from phones?",
+    "optionA": "Mobile Station",
+    "optionB": "Base Station",
+    "optionC": "BSC",
+    "optionD": "Core Network",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "What does BSC stand for?",
+    "optionA": "Base Signal Controller",
+    "optionB": "Base Station Controller",
+    "optionC": "Basic System Controller",
+    "optionD": "Base Service Center",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Which component manages multiple cell towers?",
+    "optionA": "BTS",
+    "optionB": "BSC",
+    "optionC": "MSC",
+    "optionD": "Mobile Station",
+    "correctAnswer": "B"
+  }
+]
