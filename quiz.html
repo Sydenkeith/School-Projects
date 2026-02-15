@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Network Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #667eea;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .quiz-area {
+            margin: 20px 0;
+        }
+        
+        .question-number {
+            color: #667eea;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .question {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+        
+        .option:hover {
+            background: #e8eaf6;
+            border-color: #667eea;
+        }
+        
+        .option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .option.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #4caf50;
+        }
+        
+        .option.wrong {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
+        }
+        
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
+        .feedback {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .feedback.correct {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 2px solid #4caf50;
+        }
+        
+        .feedback.wrong {
+            background: #ffebee;
+            color: #c62828;
+            border: 2px solid #f44336;
+        }
+        
+        .score-display {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .btn-next {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-next:hover {
+            background: #5568d3;
+        }
+        
+        .btn-restart {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .btn-restart:hover {
+            background: #45a049;
+        }
+        
+        .results {
+            text-align: center;
+            padding: 30px 0;
+        }
+        
+        .results h2 {
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .results .score {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .results .score.pass {
+            color: #4caf50;
+        }
+        
+        .results .score.fail {
+            color: #f44336;
+        }
+        
+        .results .message {
+            font-size: 20px;
+            margin: 20px 0;
+            color: #666;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📱 Mobile Network Quiz</h1>
+            <p>Test your knowledge about mobile networks!</p>
+        </div>
+        
+        <div id="quiz-area" class="quiz-area">
+            <div class="question-number" id="question-number"></div>
+            <div class="question" id="question-text"></div>
+            <div class="options" id="options"></div>
+            <div class="score-display" id="score-display">Score: 0/5</div>
+            <div id="feedback" class="feedback hidden"></div>
+            <button id="next-btn" class="btn btn-next hidden">Next Question</button>
+        </div>
+        
+        <div id="results" class="results hidden">
+            <h2>🎉 Quiz Complete!</h2>
+            <div class="score" id="final-score"></div>
+            <div class="message" id="result-message"></div>
+            <button id="restart-btn" class="btn btn-restart">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "How long does it take for a text message to travel through the network?",
+                options: [
+                    "About 5 seconds",
+                    "About 1 minute",
+                    "Less than 1 second",
+                    "About 10 seconds"
+                ],
+                correct: 2
+            },
+            {
+                question: "What is the brain of the mobile network?",
+                options: [
+                    "BSC",
+                    "MSC",
+                    "BTS",
+                    "Core Network"
+                ],
+                correct: 1
+            },
+            {
+                question: "Which component catches radio signals from phones?",
+                options: [
+                    "Mobile Station",
+                    "Base Station",
+                    "BSC",
+                    "Core Network"
+                ],
+                correct: 1
+            },
+            {
+                question: "What does BSC stand for?",
+                options: [
+                    "Base Signal Controller",
+                    "Base Station Controller",
+                    "Basic System Controller",
+                    "Base Service Center"
+                ],
+                correct: 1
+            },
+            {
+                question: "Which component manages multiple cell towers?",
+                options: [
+                    "BTS",
+                    "BSC",
+                    "MSC",
+                    "Mobile Station"
+                ],
+                correct: 1
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        function loadQuestion() {
+            answered = false;
+            const question = quizData[currentQuestion];
+            
+            document.getElementById('question-number').textContent = 
+                `Question ${currentQuestion + 1} of ${quizData.length}`;
+            document.getElementById('question-text').textContent = question.question;
+            
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = String.fromCharCode(65 + index) + '. ' + option;
+                optionDiv.onclick = () => selectAnswer(index);
+                optionsDiv.appendChild(optionDiv);
+            });
+            
+            document.getElementById('feedback').className = 'feedback hidden';
+            document.getElementById('next-btn').className = 'btn btn-next hidden';
+            document.getElementById('score-display').textContent = `Score: ${score}/${quizData.length}`;
+        }
+
+        function selectAnswer(selected) {
+            if (answered) return;
+            answered = true;
+            
+            const question = quizData[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(option => {
+                option.classList.add('disabled');
+            });
+            
+            const feedback = document.getElementById('feedback');
+            
+            if (selected === question.correct) {
+                score++;
+                options[selected].classList.add('correct');
+                feedback.textContent = '✓ Correct!';
+                feedback.className = 'feedback correct';
+            } else {
+                options[selected].classList.add('wrong');
+                options[question.correct].classList.add('correct');
+                feedback.textContent = '✗ Wrong! Correct answer: ' + 
+                    String.fromCharCode(65 + question.correct);
+                feedback.className = 'feedback wrong';
+            }
+            
+            document.getElementById('score-display').textContent = `Score: ${score}/${quizData.length}`;
+            document.getElementById('next-btn').className = 'btn btn-next';
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quiz-area').className = 'quiz-area hidden';
+            document.getElementById('results').className = 'results';
+            
+            const percentage = Math.round((score / quizData.length) * 100);
+            const scoreDiv = document.getElementById('final-score');
+            const messageDiv = document.getElementById('result-message');
+            
+            scoreDiv.textContent = `${score}/${quizData.length}`;
+            
+            if (percentage >= 60) {
+                scoreDiv.className = 'score pass';
+                messageDiv.textContent = `${percentage}% - ✅ Great job! You passed!`;
+            } else {
+                scoreDiv.className = 'score fail';
+                messageDiv.textContent = `${percentage}% - 💪 Keep studying! Try again!`;
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answered = false;
+            
+            document.getElementById('quiz-area').className = 'quiz-area';
+            document.getElementById('results').className = 'results hidden';
+            
+            loadQuestion();
+        }
+
+        document.getElementById('next-btn').onclick = nextQuestion;
+        document.getElementById('restart-btn').onclick = restartQuiz;
+
+        // Load first question on page load
+        loadQuestion();
+    </script>
+</body>
+</html>
