@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Types of Application</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --lavender: #EDD9FF;
+      --lavender-mid: #C9B1FF;
+      --purple-deep: #3B1D6E;
+      --purple-dark: #1A0A3C;
+      --accent: #FFD6F5;
+      --white: #fff;
+      --card-bg: rgba(255,255,255,0.08);
+      --card-border: rgba(237,217,255,0.25);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--purple-dark);
+      color: var(--lavender);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Background sky gradient */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, #6B3FA0 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, #4A2275 0%, transparent 55%),
+        radial-gradient(ellipse 50% 50% at 10% 70%, #2D1060 0%, transparent 50%),
+        linear-gradient(180deg, #1A0A3C 0%, #2E1065 40%, #4A1A8A 70%, #1A0A3C 100%);
+      z-index: -2;
+    }
+
+    /* Star/cloud particles */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 15% 20%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 45% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 30%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(2px 2px at 85% 15%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 45%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 50%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(2px 2px at 10% 60%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 65%, rgba(255,255,255,0.3) 0%, transparent 100%);
+      z-index: -1;
+    }
+
+    /* HERO */
+    header {
+      text-align: center;
+      padding: 80px 20px 60px;
+      position: relative;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--lavender-mid);
+      border: 1px solid var(--card-border);
+      padding: 6px 18px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+      animation: fadeDown 0.8s ease both;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 7vw, 4.5rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -1px;
+      animation: fadeDown 0.9s ease 0.1s both;
+    }
+
+    h1 span {
+      color: var(--lavender-mid);
+    }
+
+    .hero-sub {
+      margin-top: 18px;
+      font-size: 1rem;
+      color: rgba(237,217,255,0.6);
+      font-weight: 300;
+      max-width: 480px;
+      margin-inline: auto;
+      line-height: 1.7;
+      animation: fadeDown 1s ease 0.2s both;
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--lavender-mid), var(--accent));
+      border-radius: 4px;
+      margin: 30px auto 60px;
+      animation: fadeDown 1s ease 0.3s both;
+    }
+
+    /* CARDS */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 40px 32px;
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.3s; }
+    .card:nth-child(2) { animation-delay: 0.45s; }
+    .card:nth-child(3) { animation-delay: 0.6s; }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      opacity: 0.12;
+      transition: opacity 0.3s;
+    }
+
+    .card.native::before { background: #B57BEE; }
+    .card.hybrid::before { background: #FFB3E6; }
+    .card.web::before    { background: #81C8FF; }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+    }
+    .card:hover::before { opacity: 0.22; }
+
+    .card-icon {
+      font-size: 2.6rem;
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    .card-num {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(237,217,255,0.4);
+      margin-bottom: 10px;
+    }
+
+    .card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+
+    .card.native h2 { color: #D8B4FE; }
+    .card.hybrid h2 { color: #FFD6F5; }
+    .card.web h2    { color: #BAE6FD; }
+
+    .card p {
+      font-size: 0.95rem;
+      color: rgba(237,217,255,0.7);
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      letter-spacing: 1px;
+      padding: 5px 13px;
+      border-radius: 30px;
+      border: 1px solid;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .card.native .tag { border-color: #B57BEE; color: #B57BEE; }
+    .card.hybrid .tag { border-color: #FFB3E6; color: #FFB3E6; }
+    .card.web    .tag { border-color: #81C8FF; color: #81C8FF; }
+
+    /* Examples */
+    .examples {
+      margin-top: 24px;
+      border-top: 1px solid rgba(237,217,255,0.1);
+      padding-top: 18px;
+    }
+
+    .examples-label {
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(237,217,255,0.4);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .example-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .example-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: rgba(237,217,255,0.75);
+    }
+
+    .example-item .ex-icon {
+      font-size: 1.1rem;
+      width: 28px;
+      text-align: center;
+    }
+
+    .example-item .ex-name {
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .example-item .ex-desc {
+      font-size: 0.78rem;
+      color: rgba(237,217,255,0.45);
+    }
+
+    /* COMPARISON TABLE */
+    .table-section {
+      max-width: 900px;
+      margin: 0 auto 80px;
+      padding: 0 24px;
+      animation: fadeUp 0.8s ease 0.8s both;
+    }
+
+    .table-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+    }
+
+    thead tr {
+      background: rgba(177,123,238,0.2);
+    }
+
+    th {
+      padding: 16px 20px;
+      text-align: left;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--lavender-mid);
+      font-weight: 700;
+    }
+
+    td {
+      padding: 14px 20px;
+      font-size: 0.9rem;
+      color: rgba(237,217,255,0.75);
+      border-top: 1px solid rgba(237,217,255,0.08);
+    }
+
+    tr:hover td { background: rgba(255,255,255,0.04); }
+
+    .yes  { color: #86efac; font-weight: 700; }
+    .no   { color: #fca5a5; font-weight: 700; }
+    .mid  { color: #fde68a; font-weight: 700; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.78rem;
+      color: rgba(237,217,255,0.3);
+      letter-spacing: 1px;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="hero-tag">Mobile & Web Development</div>
+    <h1>Types of <span>Application</span></h1>
+    <p class="hero-sub">Explore the three main categories of modern applications and understand which fits your project best.</p>
+    <div class="divider"></div>
+  </header>
+
+  <section class="cards">
+
+    <!-- Native App -->
+    <div class="card native">
+      <span class="card-icon">📱</span>
+      <div class="card-num">01 — Native</div>
+      <h2>Native App</h2>
+      <p>Built specifically for a single platform — either iOS or Android — using platform-native languages like Swift/Objective-C for Apple and Kotlin/Java for Android. These apps deliver the best performance and deepest device integration.</p>
+      <div class="tags">
+        <span class="tag">Swift / Kotlin</span>
+        <span class="tag">High Performance</span>
+        <span class="tag">Platform-Specific</span>
+        <span class="tag">Full Device Access</span>
+      </div>
+      <div class="examples">
+        <div class="examples-label">📌 Real-World Examples</div>
+        <div class="example-list">
+          <div class="example-item"><span class="ex-icon">🎵</span><div><div class="ex-name">Spotify</div><div class="ex-desc">Music streaming — iOS & Android native builds</div></div></div>
+          <div class="example-item"><span class="ex-icon">📷</span><div><div class="ex-name">Instagram</div><div class="ex-desc">Photo/video sharing app by Meta</div></div></div>
+          <div class="example-item"><span class="ex-icon">🗺️</span><div><div class="ex-name">Google Maps</div><div class="ex-desc">Navigation with deep GPS hardware access</div></div></div>
+          <div class="example-item"><span class="ex-icon">💳</span><div><div class="ex-name">Apple Pay / Google Pay</div><div class="ex-desc">Secure payments using native device APIs</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hybrid App -->
+    <div class="card hybrid">
+      <span class="card-icon">⚡</span>
+      <div class="card-num">02 — Hybrid</div>
+      <h2>Hybrid App</h2>
+      <p>A blend of native and web technologies. Written once using frameworks like Flutter, React Native, or Ionic, and deployed across multiple platforms. They offer a balance between performance and development cost.</p>
+      <div class="tags">
+        <span class="tag">React Native</span>
+        <span class="tag">Flutter</span>
+        <span class="tag">Cross-Platform</span>
+        <span class="tag">Cost Efficient</span>
+      </div>
+      <div class="examples">
+        <div class="examples-label">📌 Real-World Examples</div>
+        <div class="example-list">
+          <div class="example-item"><span class="ex-icon">📘</span><div><div class="ex-name">Facebook</div><div class="ex-desc">Built with React Native for cross-platform use</div></div></div>
+          <div class="example-item"><span class="ex-icon">🛒</span><div><div class="ex-name">eBay</div><div class="ex-desc">Marketplace app using hybrid approach</div></div></div>
+          <div class="example-item"><span class="ex-icon">🏠</span><div><div class="ex-name">Airbnb</div><div class="ex-desc">Originally used React Native for mobile</div></div></div>
+          <div class="example-item"><span class="ex-icon">🎮</span><div><div class="ex-name">Google Stadia</div><div class="ex-desc">Flutter-powered cross-platform gaming app</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Web App -->
+    <div class="card web">
+      <span class="card-icon">🌐</span>
+      <div class="card-num">03 — Web</div>
+      <h2>Web App</h2>
+      <p>Runs entirely in a web browser and is built with HTML, CSS, and JavaScript. No installation is needed. Web apps are accessible from any device with a browser and are the easiest to update and maintain.</p>
+      <div class="tags">
+        <span class="tag">HTML / CSS / JS</span>
+        <span class="tag">Browser-Based</span>
+        <span class="tag">No Install</span>
+        <span class="tag">Universal Access</span>
+      </div>
+      <div class="examples">
+        <div class="examples-label">📌 Real-World Examples</div>
+        <div class="example-list">
+          <div class="example-item"><span class="ex-icon">📄</span><div><div class="ex-name">Google Docs</div><div class="ex-desc">Full document editor running in the browser</div></div></div>
+          <div class="example-item"><span class="ex-icon">🎬</span><div><div class="ex-name">Netflix</div><div class="ex-desc">Streaming via browser with no app required</div></div></div>
+          <div class="example-item"><span class="ex-icon">💬</span><div><div class="ex-name">Slack (Web)</div><div class="ex-desc">Team messaging accessible via any browser</div></div></div>
+          <div class="example-item"><span class="ex-icon">🛍️</span><div><div class="ex-name">Amazon</div><div class="ex-desc">E-commerce web app accessible on all devices</div></div></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="table-section">
+    <h3>Quick Comparison</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Native</th>
+          <th>Hybrid</th>
+          <th>Web</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Performance</td>
+          <td class="yes">Excellent</td>
+          <td class="mid">Good</td>
+          <td class="mid">Moderate</td>
+        </tr>
+        <tr>
+          <td>Cross-Platform</td>
+          <td class="no">No</td>
+          <td class="yes">Yes</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td>App Store Distribution</td>
+          <td class="yes">Yes</td>
+          <td class="yes">Yes</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Offline Support</td>
+          <td class="yes">Full</td>
+          <td class="mid">Partial</td>
+          <td class="no">Limited</td>
+        </tr>
+        <tr>
+          <td>Device Hardware Access</td>
+          <td class="yes">Full</td>
+          <td class="mid">Partial</td>
+          <td class="no">Limited</td>
+        </tr>
+        <tr>
+          <td>Development Cost</td>
+          <td class="no">High</td>
+          <td class="mid">Medium</td>
+          <td class="yes">Low</td>
+        </tr>
+        <tr>
+          <td>Ease of Maintenance</td>
+          <td class="no">Complex</td>
+          <td class="mid">Moderate</td>
+          <td class="yes">Easy</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer>
+    &copy; 2026 Types of Application &nbsp;|&nbsp; Designed with 💜
+  </footer>
+
+</body>
+</html>
